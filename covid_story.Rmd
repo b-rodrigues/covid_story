@@ -43,7 +43,7 @@ knitr::opts_chunk$set(warning = FALSE)
 This document is not an official publication from the Ministry of Health of Luxembourg.
 For official data, graphs, and information, go to https://covid19.public.lu/en.html.
 This document uses data from the [Open Data Portal](https://data.public.lu/en/datasets/donnees-covid19/).
-You can find the source code of this document [here](put link to github repo).
+You can find the source code of this document [here](https://github.com/b-rodrigues/covid_story).
 
 The purpose of this website is to document the spread of the Coronavirus 2019 disease in Luxembourg,
 including major events and decisions by the government to fight the spread. I tried to source as 
