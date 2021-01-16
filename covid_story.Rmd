@@ -48,8 +48,9 @@ You can find the source code of this document [here](put link to github repo).
 The purpose of this website is to document the spread of the Coronavirus 2019 disease in Luxembourg,
 including major events and decisions by the government to fight the spread. I tried to source as 
 many claims as possible and, to ensure posterity, only provide links to archived webpages.
+This is still a work in progress.
 
-Should you notice a mistake on this page, you can contact me: bruno [at] brodrigues [dot] co.
+Should you notice mistakes or omissions on this page, you can contact me: bruno [at] brodrigues [dot] co.
 
 If you want to know more about me: https://www.brodrigues.co.
 Thank you for reading, and stay healthy.
@@ -492,6 +493,15 @@ covid_data %>%
 
 ```
 
+In the beginning of November, as cases were increasing, our neighbours were already in lockdown,
+and the Government [was starting to consider it](https://archive.is/UdNYW). Until then, other measures
+had been introduced, such as a [curfew](https://archive.is/VHFRC) at 23:00, and on the 21st of Decembre,
+a new lockdown was voted and started on the 26th of Decembre. [Non-essential goods](https://archive.is/1NoE3)
+would not be sold anymore, remote work is to preferred whenever possible, the curfew starts at 21:00...
+[details here (in French)](https://archive.is/zUuXA).
+
+
+To be continued...
 
 
 # Acknowledgments
