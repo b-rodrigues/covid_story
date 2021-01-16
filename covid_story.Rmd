@@ -299,7 +299,7 @@ covid_data %>%
 ```
 
 This reopening of the country and return to normal lead to cases increasing again. This was expected,
-but what was not expected was the magnitude of the increase. Figure \@ref{fig:epi-curve-summer}
+but what was not expected was the magnitude of the increase. Figure \@ref(fig:epi-curve-summer)
 shows that the month of July was pretty bad, almost as bad as the first wave.
 Daily positive cases started to increase again, and we were starting the second wave (well, 
 we thought that was the second wave, until the real one arrived...), however, during his wave,
@@ -439,7 +439,7 @@ luxembourg %>%
 
 ```
 
-The Google mobility data is unequivocal; after the 15th of September, the daily change in tame spent
+The Google mobility data is unequivocal; after the 15th of September, the daily change in time spent
 at home almost went back to its baseline level. While there were still restrictions in place, as 
 well as a mask mandate and remote work being encouraged by the Government, most people spent much, 
 much less time at home than during the first wave and the very hard lockdown. The effect can 
