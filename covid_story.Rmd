@@ -112,7 +112,10 @@ yearMonthDate <- htmlwidgets::JS('function (value) {
 
 ```{r epi-curve, echo = FALSE, fig.cap = "Epidemic curve"}
 #covid_data <- data.table::fread("https://data.public.lu/en/datasets/r/767f8091-0591-4b04-9a6f-a9d60cd57159") %>%
-covid_data <- data.table::fread("datapublic-covid19.csv") %>%
+
+path_data <- "datapublic-covid19.csv"
+
+covid_data <- data.table::fread(path_data) %>%
   clean_names() %>%
   mutate(date = dmy(date)) %>%
   mutate(across(where(is.character), as.numeric)) %>%
@@ -498,29 +501,27 @@ and the Government [was starting to consider it](https://archive.is/UdNYW). Unti
 had been introduced, such as a [curfew](https://archive.is/VHFRC) at 23:00, and on the 21st of Decembre,
 a new lockdown was voted and started on the 26th of Decembre. [Non-essential goods](https://archive.is/1NoE3)
 would not be sold anymore, remote work is to preferred whenever possible, the curfew starts at 21:00...
-[details here (in French)](https://archive.is/zUuXA).
+[details here (in French)](https://archive.is/zUuXA). School holidays started on the 19 of Decembre,
+and were to end on the 3rd of January, but instead of going back to class, pupils had a week of 
+remote school from the 4th to the 10th of January, and would go back to school on the 11th.
 
+This lockdown was partially lifted on the 11th of January
+[as shops selling non-essential goods, beauty salons and gyms would be allowed to reopen](https://archive.is/HkYd0).
+Personal gatherings remain limited to 2 guests (as it was over the Christmas period).
 
 To be continued...
 
 
 # Acknowledgments
 
-This page was created using the [R programming language](https://www.r-project.org/) using 
-the [`{rmarkdown}`](https://rmarkdown.rstudio.com/) library, and others.
-Graphs were made using [`{echarts4r}`](https://echarts4r.john-coene.com/index.html).
-Data was downloaded from the [Open Data Portal](https://data.public.lu/en/datasets/donnees-covid19/).
-
-Thank you to all the people that worked to make 2020 less miserably than what it could have been.
-
-
-
-# Acknowledgments
+```{r, echo=FALSE}
+date_created <- file.info(path_data)$ctime
+```
 
 This page was created using the [R programming language](https://www.r-project.org/) using 
 the [`{rmarkdown}`](https://rmarkdown.rstudio.com/) library, and others.
 Graphs were made using [`{echarts4r}`](https://echarts4r.john-coene.com/index.html).
-Data was downloaded from the [Open Data Portal](https://data.public.lu/en/datasets/donnees-covid19/).
+Data was downloaded from the [Open Data Portal](https://data.public.lu/en/datasets/donnees-covid19/) on
+the `r date_created`.
 
 Thank you to all the people that worked to make 2020 less miserably than what it could have been.
-
