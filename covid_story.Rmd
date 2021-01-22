@@ -42,7 +42,11 @@ knitr::opts_chunk$set(warning = FALSE)
 
 This document is not an official publication from the Ministry of Health of Luxembourg.
 For official data, graphs, and information, go to https://covid19.public.lu/en.html.
-This document uses data from the [Open Data Portal](https://data.public.lu/en/datasets/donnees-covid19/).
+This document uses data from the [Open Data Portal](https://data.public.lu/en/datasets/donnees-covid19/),
+as well as data put together by [Ben Elsen](https://github.com/benelsen/covid19lu) which he gets from
+the PDF reports published by the Ministry of Health (which contain more information than the open
+data they publish...).
+
 You can find the source code of this document [here](https://github.com/b-rodrigues/covid_story).
 
 The purpose of this website is to document the spread of the Coronavirus 2019 disease in Luxembourg,
@@ -149,6 +153,7 @@ covid_data %>%
   e_title("Daily positive cases") %>%  
   e_datazoom() %>%
   e_theme("vintage") 
+
 ```
 
 During this first wave, the government announced a lockdown on the 15th of March. Schools,
@@ -469,10 +474,13 @@ covid_data %>%
   e_title("Daily positive cases") %>%  
   e_datazoom() %>%
   e_theme("vintage") 
+
 ```
 
 Cases exploded. This wave is the one people refer to now when they talk about the second wave.
-Worse, still, deaths skyrocketed, especially in November:
+
+Around mid Octobre, as cases were rising rapidly, hospitals were starting to get under [pressure again](https://archive.is/b89vS), 
+and worse, deaths started to increase again around the end of October, and exploded in November:
 
 ```{r, echo = FALSE, fig.cap = "Daily cumulative number of deaths in the autumn and winter"}
 covid_data %>%
@@ -497,17 +505,175 @@ covid_data %>%
 ```
 
 In the beginning of November, as cases were increasing, our neighbours were already in lockdown,
-and the Government [was starting to consider it](https://archive.is/UdNYW). Until then, other measures
-had been introduced, such as a [curfew](https://archive.is/VHFRC) at 23:00, and on the 21st of Decembre,
-a new lockdown was voted and started on the 26th of Decembre. [Non-essential goods](https://archive.is/1NoE3)
-would not be sold anymore, remote work is to preferred whenever possible, the curfew starts at 21:00...
-[details here (in French)](https://archive.is/zUuXA). School holidays started on the 19 of Decembre,
-and were to end on the 3rd of January, but instead of going back to class, pupils had a week of 
-remote school from the 4th to the 10th of January, and would go back to school on the 11th.
+and the Government [was starting to consider it](https://archive.is/UdNYW).
+However, Luxembourg remained open for quite some time still, within the [Greater Region](https://en.wikipedia.org/wiki/Greater_Region_of_Luxembourg)
+was becoming THE PLACE TO BE. So much so, that TF1, one of France's major TV networks [aired a news story](https://archive.is/jWFHe)
+showing how you could spend a comfy week-end in Luxembourg. 
+But why did the Government take so long to lockdown, while every other country around Luxembourg was
+either already in lockdown, or had implemented very harsh measures again, as during the first
+wave of the spring? The reason was that while cases and deaths were increasing, hospitals were still
+able to cope with the influx of patients.
+
+
+```{r occ_beds, echo = FALSE, fig.cap = "Daily occupancy of hospital beds"}
+covid_data %>%
+  filter(between(date,
+                 ymd("2020-01-01"),
+                 ymd("2020-12-31"))) %>%  
+  mutate(`Standard hospital beds` = soins_normaux,
+         `ICU beds` = soins_intensifs) %>%  
+  e_charts(date) %>%  
+  e_area(`Standard hospital beds`, stack = "stack") %>%
+  e_area(`ICU beds`, stack = "stack") %>%
+  e_tooltip("item",
+            axisPointer = list(
+              type = "cross"
+            )) %>%
+  e_x_axis(date,
+           axisPointer = list(show = TRUE),
+           axisLabel = list(
+             formatter = yearMonthDate
+           )) %>%  
+  e_datazoom() %>%
+  e_title("Daily occupancy of hospital beds") %>%  
+  e_theme("vintage")
+
+```
+
+\@ref(fig:occ_beds) shows the daily occupancy of hospital beds; this occupancy is one of the most
+important KPIs for the Government, and closely [monitored by the Ministry of Health](https://archive.is/cPyv1).
+
+To try to slow down the spread, and thus give hospitals some more room to breath, new measures
+were introduced, such as a [curfew](https://archive.is/VHFRC) at 23:00, but only on the 21st of Decembre,
+a new lockdown was voted at the Parliament and started on the 26th of Decembre.
+[Non-essential goods](https://archive.is/1NoE3) would not be sold anymore, remote work was to preferred
+whenever possible, the curfew starts at 21:00...[details here (in French)](https://archive.is/zUuXA). 
+School holidays started on the 19 of Decembre, and were to end on the 3rd of January, but instead of 
+going back to class, pupils had a week of  remote school from the 4th to the 10th of January, 
+and would go back to school on the 11th. During the holidays, pupils and teachers would (almost)
+all receive an invitation to get a free PCR test as part of the Large Scale Testing programme.
+[Around 20% of pupils and 41% of teachers participated to the testing campaign](https://archive.is/jXWj9).
 
 This lockdown was partially lifted on the 11th of January
 [as shops selling non-essential goods, beauty salons and gyms would be allowed to reopen](https://archive.is/HkYd0).
-Personal gatherings remain limited to 2 guests (as it was over the Christmas period).
+Personal gatherings remained limited to 2 guests (as it was over the Christmas period).
+
+# 2021 and a new hope
+
+The partial, or soft (in comparison to the one from March) lockdown seemed to be effective. 
+Daily cases dropped, and hospitals started to have more room to breathe:
+
+
+```{r, echo = FALSE, fig.cap = "Epidemic curve, winter and January"}
+covid_data %>%
+  filter(between(date,
+                 ymd("2020-09-15"),
+                 ymd("2021-01-31"))) %>%
+  e_charts(date) %>%  
+  e_line(Positives) %>%
+  e_line(`Positives (7-day moving average)`)  %>%  
+  e_tooltip("item",
+          axisPointer = list(
+            type = "cross"
+          )) %>%
+  e_x_axis(date,
+           axisPointer = list(show = TRUE),
+           axisLabel = list(
+             formatter = yearMonthDate
+           )) %>%  
+  e_title("Daily positive cases") %>%  
+  e_datazoom() %>%
+  e_theme("vintage") 
+```
+
+Cases did not decrease to their post-spring-lockdown levels, but the situation is more manageable
+in the hospitals.
+
+```{r, echo = FALSE, fig.cap = "Daily occupancy of hospital beds, winter and January"}
+covid_data %>%
+  filter(between(date,
+                 ymd("2020-09-15"),
+                 ymd("2021-01-31"))) %>%
+mutate(`Standard hospital beds` = soins_normaux,
+         `ICU beds` = soins_intensifs) %>%  
+  e_charts(date) %>%  
+  e_area(`Standard hospital beds`, stack = "stack") %>%
+  e_area(`ICU beds`, stack = "stack") %>%
+  e_tooltip("item",
+            axisPointer = list(
+              type = "cross"
+            )) %>%
+  e_x_axis(date,
+           axisPointer = list(show = TRUE),
+           axisLabel = list(
+             formatter = yearMonthDate
+           )) %>%  
+  e_datazoom() %>%
+  e_title("Daily occupancy of hospital beds") %>%  
+  e_theme("vintage")
+
+```
+
+Deaths have been a daily occurrence during the Winter, but January already
+[had a couple of days without any new deaths](https://archive.is/vxVMj).
+
+```{r, echo = FALSE, fig.cap = "Daily cumulative number of deaths winter and January"}
+covid_data %>%
+  filter(between(date,
+                 ymd("2020-09-15"),
+                 ymd("2021-01-31"))) %>%
+  e_charts(date) %>%  
+  e_line(`Cumulative deaths`) %>%
+  e_tooltip("item",
+            axisPointer = list(
+              type = "cross"
+            )) %>%
+  e_x_axis(date,
+           axisPointer = list(show = TRUE),
+           axisLabel = list(
+             formatter = yearMonthDate
+           )) %>%  
+  e_datazoom() %>%
+  e_title("Daily cumulative number of deaths") %>%  
+  e_theme("vintage")
+```
+
+In order for the situation to continue improving, it was decided on the 22nd of January that 
+the soft lockdown and all the other measures that were still in force would be extended 
+for [one more month](https://archive.is/onMu5) at least.
+
+Other good news: the vaccination campaign started in Luxembourg, and the first doses of the 
+vaccine have started to be administered to health care workers.
+
+```{r, echo = FALSE}
+vaccines <- data.table::fread("https://raw.githubusercontent.com/benelsen/covid19lu/master/data/daily_sante.csv")
+
+vaccines %>%  
+  mutate(date = ymd(date)) %>%  
+  filter(between(date,
+                 ymd("2021-01-09"),
+                 ymd("2021-01-31"))) %>%
+  mutate(`Persons vaccinated` = vaccination_persons,
+         `Doses administered` = vaccination_doses_administered) %>%  
+e_charts(date) %>%  
+  e_line(`Persons vaccinated`) %>%
+  e_line(`Doses administered`) %>%
+  e_tooltip("item",
+            axisPointer = list(
+              type = "cross"
+            )) %>%
+  e_x_axis(date,
+           axisPointer = list(show = TRUE),
+           axisLabel = list(
+             formatter = yearMonthDate
+           )) %>%  
+  e_datazoom() %>%
+  e_title("Daily cumulative number\nof people vaccinated, and doses administered") %>%  
+  e_theme("vintage")
+
+```
+
+
 
 To be continued...
 
